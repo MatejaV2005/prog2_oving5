@@ -3,13 +3,16 @@ package edu.ntnu.idi.idatt.model;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
 
 public class DeckOfCards {
   private List<PlayingCard> deck;
+  private Random rand = new Random();
   private final char[] suit = {'H', 'S', 'D', 'C'};
 
-  DeckOfCards() {
-    deck = new ArrayList<PlayingCard>();
+  public DeckOfCards() {
+    deck = new ArrayList<>();
     initCards();
   }
 
@@ -23,7 +26,14 @@ public class DeckOfCards {
   }
 
   public Collection<PlayingCard> dealHand(int n) {
-    return null; //TODO
+    if (n > deck.size()) {
+      throw new IllegalArgumentException("n > deck.size");
+    }
+    return rand.ints(0, deck.size())
+        .distinct()
+        .limit(n)
+        .mapToObj(deck::get)
+        .collect(Collectors.toList());
   }
 
 
