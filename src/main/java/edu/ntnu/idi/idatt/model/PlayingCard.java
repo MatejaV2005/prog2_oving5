@@ -5,7 +5,7 @@ public class PlayingCard {
   private final int value;
   private final char type;
 
-  PlayingCard(int value, char type) {
+  public PlayingCard(int value, char type) {
     this.value = value;
     this.type = type;
   }
@@ -14,7 +14,7 @@ public class PlayingCard {
     return value;
   }
 
-  public char getType() {
+  public char getSuit() {
     return type;
   }
 

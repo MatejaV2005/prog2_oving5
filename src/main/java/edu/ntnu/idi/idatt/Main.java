@@ -1,8 +1,11 @@
 package edu.ntnu.idi.idatt;
 
+import edu.ntnu.idi.idatt.view.MainUI;
+import javafx.application.Application;
+
 public class Main {
 
   public static void main(String[] args) {
-    System.out.println("Hello world!");
+    Application.launch(MainUI.class, args);
   }
 }
