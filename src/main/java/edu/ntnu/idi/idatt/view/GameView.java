@@ -1,6 +1,9 @@
 package edu.ntnu.idi.idatt.view;
 
 import edu.ntnu.idi.idatt.model.PlayingCard;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.List;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -8,7 +11,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -17,7 +19,7 @@ import javafx.scene.text.Text;
 
 import java.util.Collection;
 
-public class GameView {
+public class GameView implements PropertyChangeListener {
   private static Pane cardDisplayArea;
   private static Button dealHandButton;
   private static Button checkHandButton;
@@ -25,6 +27,23 @@ public class GameView {
   private static TextField heartsField;
   private static TextField flushField;
   private static TextField queenField;
+
+  @Override
+  public void propertyChange(PropertyChangeEvent evt) {
+    if (evt.getPropertyName().equals("handChanged")) {
+      List<PlayingCard> newHand = (List<PlayingCard>) evt.getNewValue();
+      displayCards(newHand);
+    }
+    else if (evt.getPropertyName().equals("handAnalysis")) {
+      Object[] data = (Object[]) evt.getNewValue();
+      int sum = (int) data[0];
+      String hearts = (String) data[1];
+      boolean flush = (boolean) data[2];
+      boolean queenOfSpades = (boolean) data[3];
+
+      updateInfo(sum, hearts, flush, queenOfSpades);
+    }
+  }
 
   public static BorderPane createLayout() {
     BorderPane layout = new BorderPane();
@@ -50,8 +69,8 @@ public class GameView {
   private static Pane createCardDisplayArea() {
     // Create a pane with a light gray background and a border
     Pane displayArea = new Pane();
-    Rectangle background = new Rectangle(500, 300);
-    background.setFill(Color.LIGHTGRAY);
+    Rectangle background = new Rectangle(460, 300);
+    background.setFill(Color.DARKGREEN);
     background.setStroke(Color.BLACK);
     displayArea.getChildren().add(background);
 
@@ -124,8 +143,7 @@ public class GameView {
   }
 
   // Method to display cards in the card area
-  public static void
-  displayCards(Collection<PlayingCard> cards) {
+  public static void displayCards(Collection<PlayingCard> cards) {
     // Clear the display area except for the background
     Rectangle background = (Rectangle) cardDisplayArea.getChildren().get(0);
     cardDisplayArea.getChildren().clear();
