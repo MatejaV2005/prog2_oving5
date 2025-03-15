@@ -1,38 +1,39 @@
+### Build & Dependency Folders ###
 target/
-!.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
 
-### IntelliJ IDEA ###
-.idea/modules.xml
-.idea/jarRepositories.xml
-.idea/compiler.xml
-.idea/libraries/
-*.iws
-*.iml
-*.ipr
+### Ignore Maven Wrapper but Keep Important JAR ###
+!.mvn/wrapper/maven-wrapper.jar
 
-### Eclipse ###
+### Ignore IntelliJ IDEA Files ###
+.idea/
+.idea/*      # Ignore everything inside .idea/
+!.idea/workspace.xml   # Optional: Keep workspace.xml if needed
+*.iml
+
+### Ignore Eclipse Files ###
 .apt_generated
 .classpath
 .factorypath
 .project
-.settings
+.settings/
 .springBeans
 .sts4-cache
 
-### NetBeans ###
+### Ignore NetBeans Files ###
 /nbproject/private/
 /nbbuild/
 /dist/
 /nbdist/
 /.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
 
-### VS Code ###
+### Ignore VS Code Settings ###
 .vscode/
 
-### Mac OS ###
+### Ignore MacOS Junk Files ###
 .DS_Store
+
+### Ignore All XML Files Except Specific Ones ###
+*.xml
+!pom.xml       # Keep Maven's POM file
